@@ -1,0 +1,109 @@
+---
+title: "Applied Mathematics and Statistics"
+subtitle: "Talk 01"
+author: "Xiangqi Yi (yixq@jmu.edu.cn)"
+date: "2025-02-20"
+output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Why do you choose this course?
+
+## About this course
+- General assumptions(limitations) of basic statistical methods
+  - Student's t test
+  - ANOVA
+  - Linear regression
+  - Pearson's correlation analysis
+  ...
+- Beyond linear regression
+  - Linear mixed-effects model (LMM)
+  - Generalized linear model (GLM)
+  - Generalized additive model(GAM)
+  ...
+
+## About this course
+- Tools
+  - R, Rstudio and R markdown
+  - Git and github
+  -...
+
+##
+
+"Young man, in mathematics you don’t understand things. You just get used to them."
+
+by JOHN VON NEUMANN, to FELIX SMITH
+
+## How to achieve good scores in this course？
+### Homework(50%) + Final project (50%)
+#### Homework
+- Deadline: Wednesday
+- `.Rmd` files + others
+
+#### Final project
+- Deadline: June 21, 2025 (Week 18)
+- `.Rmd` files + others
+
+## About final project
+- Topic selection
+  - Select one from the topic collection
+  - Self-selected topic confirmed by me
+- Scoring criteria
+  - A complete story
+  - Appropriate statistical methods
+  - easy or hard
+  ...
+- ***No tolerance for plagiarism***, but large language models, such as DeepSeek, ChatGPT and Qwen, are acceptable.
+
+## Resources
+
+- [R for Data Science(R4DS)](https://r4ds.hadley.nz): This popular book by Hadley Wickham and Garrett Grolemund covers data manipulation, visualization, and modeling in `R` and `tidyverse`.
+- *Mixed Effects Models And Extensions in Ecology with R* 
+- [Swirl](https://swirlstats.com): An `R` package that turns your `R` console into an interactive learning environment. 
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Underlying assumptions of linear regression
+- Linearity: the independent variables is linearly related to dependent variable.
+- Independence: the observations are independent of each other.
+- Homoscedasticity: the variance of the residuals (errors) is constant across all levels of the independent variables.
+- Normality: the residuals follow a normal distribution.
+- No multicollinearity: independent variables are not highly correlated with each other.
+
+# A case of linear regression model
+## Import packages
+```{r, echo = T, message=FALSE}
+# chooseCRANmirror()
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+## Read data to `dataframe`
+```{r, echo=T, message=FALSE}
+Clams <- read_table("Data/ZuurDataMixedModelling/Clams.txt")
+```
+## A glimpse of the `dataframe`
+```{r, echo=TRUE}
+head(Clams, n = 3) # try glimpse(), summary(), tail(), and slice()
+```
+
+## Data transformation and pipe
+```{r}
+Clams %>%
+  mutate(log_AFD = log(AFD),
+         log_LENGTH = log(LENGTH)) %>%
+  ggplot() + geom_point(aes(log_LENGTH, log_AFD)) +
+    facet_wrap(~MONTH)
+```
+
+
+## Homework 01
+- Installing `R` and `Rstudio`
+- 

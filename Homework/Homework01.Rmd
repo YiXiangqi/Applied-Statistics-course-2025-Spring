@@ -1,0 +1,75 @@
+---
+title: "Homework 01"
+author: "Xiangqi Yi"
+date: "2025-02-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Homework
+
+-   Reading: Chapter 2 of *Mixed Effects Models And Extensions in Ecology with R*
+-   Coding: Using `tidyverse` reproduce Fig2.3, Fig2.4 and Fig 2.6 in *Mixed Effects Models And Extensions in Ecology with R*
+
+## Code examples
+### Reproduce Fig 2.1
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+Nereis <- read_table("Data/ZuurDataMixedModelling/Nereis.txt")
+Nereis
+```
+### Panel A
+```{r}
+PanelA <-
+  Nereis %>%
+    mutate(nutrient_rank = factor(1:45)) %>%
+    ggplot() + 
+      geom_point(aes(x = concentration, y = nutrient_rank), shape = 1) +
+      ylab("Order of Observation") +
+      xlab("Concentrations") +
+      #labs(title = "Cleveland dotplot")+
+      ggtitle("Cleveland dotplot") +
+      theme_light() +
+      theme(axis.text.y = element_blank(),
+            axis.ticks.y=element_blank(),
+            plot.title = element_text(hjust = 0.5))
+PanelA
+```
+
+### Panel B
+```{r}
+PanelB <-
+  Nereis %>%
+    mutate(nutrient_rank = factor(1:45)) %>%
+    ggplot() + 
+      geom_point(aes(x = concentration, y = nutrient_rank, shape = factor(nutrient))) +
+      ylab("Nutrient") +
+      xlab("Concentrations") +
+      scale_shape_manual(values = c(1, 2, 3)) +
+      scale_y_discrete(breaks = c("16", "31","45"), labels = c("1", "2", "3")) +
+      #labs(title = "Cleveland dotplot")+
+      ggtitle("Cleveland dotplot") +
+      theme_light() +
+      guides(shape = "none") +
+      theme(axis.ticks.y=element_blank(),
+            plot.title = element_text(hjust = 0.5))
+PanelB
+```
+
+### Merge Panel A and Panel B using package [patchwork](https://patchwork.data-imaginist.com)
+```{r}
+#install.packages("patchwork")
+library(patchwork)
+```
+
+```{r}
+PanelA + PanelB + plot_annotation(tag_levels = 'A')
+```
+
+## Reproduce Fig2.3
